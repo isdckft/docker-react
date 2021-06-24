@@ -1,0 +1,12 @@
+# build in dev
+# docker build -f Dockerfile.dev -t isdckft/react .
+# docker run -it -p 3000:3000 isdckft/react
+# docker run -it -p 3000:3000 -v /app/node_modules -v $(pwd):/app isdckft/react
+# docker run -it -p 3000:3000 -v /app/node_modules -v /mnt/d/k8s/dockers/reactsample/frontend:/app isdckft/react
+FROM node:alpine
+WORKDIR '/app'
+COPY package.json .
+RUN npm install
+RUN chmod -R 777 node_modules
+COPY . .
+CMD ["npm", "run", "start"]
